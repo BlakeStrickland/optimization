@@ -1,6 +1,10 @@
 class ReportsController < ApplicationController
   helper_method :memory_in_mb
 
+  def search
+
+  end
+
   def all_data
     @start_time = Time.now
 
@@ -17,6 +21,8 @@ class ReportsController < ApplicationController
         end
       end
     end
+    # @hits = Hit.includes(gene: {sequence: :assembly}).where("percent_similarity LIKE ? OR genes.dna LIKE ? OR sequences.dna LIKE ? OR assemblies.name LIKE ?", "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%")
+
     @hits.sort! {|a, b| b.percent_similarity <=> a.percent_similarity}
 
     @memory_used = memory_in_mb
